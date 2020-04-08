@@ -1,0 +1,162 @@
+<meta http-equiv='Content-type' content='text/htm'>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compitable" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title></title>
+		<!--[if lt IE 9]>
+	    <script src="static/pcat_style/js/html5shiv.min.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="static/pcat_style/js/respond.min.js" type="text/javascript" charset="utf-8"></script>
+	    <![endif]-->
+		<script src="../static/pcat_style/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="../static/pcat_style/css/cihui-test.css" />
+	</head>
+
+	<body>
+		<div class="index">
+			<div class="rule">
+				<img src="../static/pcat_style/cihui_img/lADPD3IrqTvYJxLNAljNAyA_800_600.jpg"/>
+			</div>
+			<div class="test-btn" href="cihui-test.html">开始测试</div>
+		</div>
+		<div class="test">
+			<div class="question"></div>
+			<ul class="option">
+				<!--<li>1)<span>111</span></li>
+				<li>2)<span>222</span></li>
+				<li>3)<span>333</span></li>
+				<li>4)<span>444</span></li>
+				<li>5)<span>555</span></li>-->
+			</ul>
+			<div class="next">下一题</div>
+			<div class="time"></div>
+		</div>
+		<script type="text/javascript">
+			$('.test').hide();
+			$('.test-btn').click(function(){
+				$('.index').hide();
+				$('.test').show();
+			})
+			var list = [{'uuid': 24, 'stem_info': '进步', 'stem_media': [{'sel_uuid': 1, 'gai_id': 24, 'sel_info': '有成绩', 'media': [], 'sel_value': 1, 'is_tagert': 0}, {'sel_uuid': 2, 'gai_id': 24, 'sel_info': '比原来好', 'media': [], 'sel_value': 2, 'is_tagert': 0}, {'sel_uuid': 3, 'gai_id': 24, 'sel_info': '不后退', 'media': [], 'sel_value': 0, 'is_tagert': 0}, {'sel_uuid': 4, 'gai_id': 24, 'sel_info': '思想上的要求', 'media': [], 'sel_value': 0, 'is_tagert': 0}, {'sel_uuid': 5, 'gai_id': 24, 'sel_info': '学习上进', 'media': [], 'sel_value': 1, 'is_tagert': 0}]}, {'uuid': 21, 'stem_info': '颠倒', 'stem_media': [{'sel_uuid': 1, 'gai_id': 21, 'sel_info': '把东西倒转过来', 'media': [], 'sel_value': 2, 'is_tagert': 0}, {'sel_uuid': 2, 'gai_id': 21, 'sel_info': '没有秩序', 'media': [], 'sel_value': 1, 'is_tagert': 0}, {'sel_uuid': 3, 'gai_id': 21, 'sel_info': '拨弄是非', 'media': [], 'sel_value': 0, 'is_tagert': 0}, {'sel_uuid': 4, 'gai_id': 21, 'sel_info': '混淆是非', 'media': [], 'sel_value': 1, 'is_tagert': 0}, {'sel_uuid': 5, 'gai_id': 21, 'sel_info': '不舒适', 'media': [], 'sel_value': 0, 'is_tagert': 0}]}, {'uuid': 29, 'stem_info': '矛盾', 'stem_media': [{'sel_uuid': 1, 'gai_id': 29, 'sel_info': '两者相互矛盾', 'media': [], 'sel_value': 0, 'is_tagert': 0}, {'sel_uuid': 2, 'gai_id': 29, 'sel_info': '相互对立的两个方面', 'media': [], 'sel_value': 2, 'is_tagert': 0}, {'sel_uuid': 3, 'gai_id': 29, 'sel_info': '有意见', 'media': [], 'sel_value': 1, 'is_tagert': 0}, {'sel_uuid': 4, 'gai_id': 29, 'sel_info': '挑拨是非', 'media': [], 'sel_value': 0, 'is_tagert': 0}, {'sel_uuid': 5, 'gai_id': 29, 'sel_info': '夫妻之间不融洽', 'media': [], 'sel_value': 1, 'is_tagert': 0}]}, {'uuid': 27, 'stem_info': '器重', 'stem_media': [{'sel_uuid': 1, 'gai_id': 27, 'sel_info': '敬仰', 'media': [], 'sel_value': 0, 'is_tagert': 0}, {'sel_uuid': 2, 'gai_id': 27, 'sel_info': '信任', 'media': [], 'sel_value': 1, 'is_tagert': 0}, {'sel_uuid': 3, 'gai_id': 27, 'sel_info': '相信', 'media': [], 'sel_value': 1, 'is_tagert': 0}, {'sel_uuid': 4, 'gai_id': 27, 'sel_info': '机器重量', 'media': [], 'sel_value': 0, 'is_tagert': 0}, {'sel_uuid': 5, 'gai_id': 27, 'sel_info': '看得起', 'media': [], 'sel_value': 2, 'is_tagert': 0}]}]
+			function lang(){
+				if(time==0){
+					$('.option li').removeClass('ground');
+					itemChoice={};
+					testNum+=1;
+					clearInterval(timer);
+					time=30;
+					if(testNum>list.length-1){
+						alert('结束')
+						return false;
+					}
+					$('.time').text('剩余时间：'+time+'秒')
+					timer=setInterval(function(){
+						time-=1;
+						$('.time').text('剩余时间：'+time+'秒')
+						if(time==0){
+							lang()
+						}
+					},1000)
+					$('.question').html('');
+					$('.option').html('');
+					isChoice=false;
+					$('.question').text(list[testNum].stem_info);
+					for(var i = 0; i < list[testNum]['stem_media'].length; i++) {
+						$('.option').append('<li>' + (i + 1) + ')' + list[testNum]['stem_media'][i].sel_info + '</li>')
+					}
+					$('.option li').each(function(index){
+						$('.option li').eq(index).click(function(){
+							$(this).addClass('ground').siblings().removeClass('ground');
+							itemChoice.num=testNum;
+							itemChoice.score=list[testNum]['stem_media'][index]['sel_value'];
+							itemChoice.choice=list[testNum]['stem_media'][index];
+							isChoice=true;
+						})
+					})
+				}
+			}
+			var testNum = 0;
+			var choice=[]
+			var itemChoice={}
+			var isChoice=false;
+			//获取当前毫秒
+			var date=new Date();
+			var getTime=date.getTime();
+			var time=30;
+			$('.question').text(list[testNum].stem_info);
+			for(var i = 0; i < list[testNum]['stem_media'].length; i++) {
+				$('.option').append('<li>' + (i + 1) + ')' + list[testNum]['stem_media'][i].sel_info + '</li>')
+			}
+			$('.option li').each(function(index){
+				$('.option li').eq(index).click(function(){
+					$(this).addClass('ground').siblings().removeClass('ground');
+					itemChoice.num=testNum;
+					itemChoice.score=list[testNum]['stem_media'][index]['sel_value'];
+					itemChoice.choice=list[testNum]['stem_media'][index];
+					isChoice=true;
+				})
+			})
+			$('.time').text('剩余时间：'+time+'秒')
+			var timer=setInterval(function(){
+				time-=1;
+				$('.time').text('剩余时间：'+time+'秒')
+				if(time==0){
+					lang()
+				}
+			},1000)
+			$('.next').click(function(){
+				$('.option li').removeClass('ground');
+				if(isChoice===false){
+					alert('请选择答案');
+					return false;
+				}
+				//获取答题毫秒数
+				var nowDate=new Date();
+				var nowTime=nowDate.getTime();
+				var smallTime=nowTime-getTime;
+				itemChoice.time=smallTime;
+				choice.push(itemChoice);
+				console.log(choice)
+				date=new Date();
+				getTime=date.getTime();
+				itemChoice={};
+				testNum+=1;
+				clearInterval(timer);
+				time=30;
+				if(testNum>list.length-1){
+					alert('结束')
+
+					return false;
+				}
+				$('.time').text('剩余时间：'+time+'秒')
+				timer=setInterval(function(){
+					time-=1;
+					$('.time').text('剩余时间：'+time+'秒')
+					if(time==0){
+						lang()
+					}
+				},1000)
+				$('.question').html('');
+				$('.option').html('');
+				isChoice=false;
+				$('.question').text(list[testNum].stem_info);
+				for(var i = 0; i < list[testNum]['stem_media'].length; i++) {
+					$('.option').append('<li>' + (i + 1) + ')' + list[testNum]['stem_media'][i].sel_info + '</li>')
+				}
+				$('.option li').each(function(index){
+					$('.option li').eq(index).click(function(){
+						$(this).addClass('ground').siblings().removeClass('ground');
+						itemChoice.num=testNum;
+						itemChoice.score=list[testNum]['stem_media'][index]['sel_value'];
+						itemChoice.choice=list[testNum]['stem_media'][index];
+						isChoice=true;
+					})
+				})
+			})
+		</script>
+	</body>
+
+</html>

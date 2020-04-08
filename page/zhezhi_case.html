@@ -1,0 +1,95 @@
+<meta http-equiv='Content-type' content='text/htm'>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compitable" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title></title>
+		<!--[if lt IE 9]>
+	    <script src="js/html5shiv.min.js"></script>
+	    <script src="js/respond.min.js"></script>
+	    <![endif]-->
+		<script type="text/javascript" src="../static/pcat_style/js/jquery-1.11.0.js"></script>
+		<link rel="stylesheet" type="text/css" href="../static/pcat_style/css/case.css"/>
+	</head>
+	<body>
+        <div style="height: 10%;"></div>
+		<div class="rule">
+			横线上方是折纸和扎孔（扎透了所有的层）的过程，横线下方给出了5种纸被展开后的情况，其中只有一个是正确的答案。
+		</div>
+		<div class="question">
+			<div class="question-item">
+				<img src="../static/pcat_style/zhe_zhi_img/im_item1.bmp"/>
+				<div class="item-text">
+					折纸
+				</div>
+			</div>
+			<div class="question-item">
+				<img src="../static/pcat_style/zhe_zhi_img/im_item2.bmp"/>
+				<div class="item-text">
+					打孔
+				</div>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+		<div class="bor"></div>
+		<div class="answer">
+			<div class="answer-item">
+				<div class="item-box">
+					<img src="../static/pcat_style/zhe_zhi_img/O1.bmp"/>
+				</div>				
+			</div>
+			<div class="answer-item">
+				<div class="item-box">
+					<img src="../static/pcat_style/zhe_zhi_img/O2.bmp"/>
+				</div>	
+			</div>
+			<div class="answer-item">
+				<div class="item-box">
+					<img src="../static/pcat_style/zhe_zhi_img/O3.bmp"/>
+				</div>	
+			</div>
+			<div class="answer-item">
+				<div class="item-box">
+					<img src="../static/pcat_style/zhe_zhi_img/O4.bmp"/>
+				</div>	
+			</div>
+			<div class="answer-item">
+				<div class="item-box">
+					<img src="../static/pcat_style/zhe_zhi_img/O5.bmp"/>
+				</div>	
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+		<div class="choice">
+			请用鼠标点选您认为正确的答案
+		</div>
+		<div class="sure">
+			正确
+		</div>
+		<div class="err">
+			错误
+		</div>
+		<div class="footer">
+			<a class="prev" href="?index=1">上一页</a>
+			<a class="next" href="?process=1">下一页</a>
+		</div>
+		<script type="text/javascript">
+			$('.item-box').each(function(index){
+				$('.item-box').eq(index).click(function(){
+					$(this).addClass('side').parent().siblings().find('.item-box').removeClass('side');
+					if(index==2){
+						$('.sure').show();
+						$('.choice').hide();
+						$('.err').hide();
+					}else{
+						$('.err').show();
+						$('.sure').hide();
+						$('.choice').hide();
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

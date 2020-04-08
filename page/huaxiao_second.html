@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试</title>
+    <link rel="stylesheet" href="../static/pcat_style/huaxiao_css/reset.css">
+    <link rel="stylesheet" href="../static/pcat_style/huaxiao_css/index.css">
+    <style>
+body {
+  width: 100%;
+  position: relative;
+  font-size: 14px;
+}
+body h2 {
+  text-align: center;
+  padding: 10px 0;
+}
+body .content {
+  padding: 0 6px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+body .content p {
+  width: 30px;
+  height: 30px;
+  margin: 5px 0 10px;
+  text-align: center;
+  line-height: 30px;
+  position: relative;
+  font-size: 30px;
+}
+body .content p .disabled {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: red;
+  visibility: hidden;
+}
+body .content p .active {
+  visibility: visible;
+}
+body .interval {
+  height: 80px;
+  position: relative;
+}
+body .interval #button {
+  width: 100px;
+  height: 30px;
+  font-size: 20px;
+  color: red;
+  border: 0px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+    </style>
+</head>
+<body id="body">
+    <h2>划掉“b”右边所有的“7”</h2>
+    <div class="content">
+
+    </div>
+    <div class="interval">
+        <button id="button">59</button>
+    </div>
+    <script>
+        var content = document.querySelector(".content");
+        var right = 0;
+        var error = 0;
+        var sum = 0;
+        var rightArr = [];
+        window.onload = function () {
+            var arr = ['a', '7', 'b', '7', 'c', '7', 'd', '7', 'e', '7', 'f', 'g', 'h', 'i', 'j', 'k', '7', 'l', 'm', 'n', '7', 'o', 'p', 'q', '7', 'r', 's', 't', '7', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7']
+            for(var i = 0; i < 104; i++) {
+                var p = document.createElement("p");
+                var nextP = p.previousSibling || 0;
+                var rand = Math.floor(Math.random() *(arr.length - 1 - 0 +1) + 0);
+                p.innerText = arr[rand];
+                if (p.innerText === "7") {
+                    rightArr.push(i);
+                }
+                content.appendChild(p);
+                var span = document.createElement("span");
+                span.innerText = "=";
+                p.dataset.index = i;
+                p.dataset.value = arr[rand];
+                span.classList.add("disabled")
+                p.appendChild(span);
+                p.onclick = function (e) {
+                    var p = document.querySelectorAll("p")[e.target.dataset.index];
+                    var nextP = p.previousSibling;
+                    console.log(p);
+                    console.log(nextP);
+                    var span = p.querySelector("span");
+                    span.classList.add("active");
+                    if(nextP.dataset.value === "b") {
+                        right++;
+                    }else {
+                        error++;
+                    }
+                }
+            }
+            var p = document.querySelectorAll('p');
+            for(var i = 0; i < p.length; i++) {
+                if(p[i].dataset.value === "7") {
+                    // console.log(p[i]);
+                    for(var j = 0; j < rightArr.length; j++) {
+                        p[rightArr[j]].innerText = "b";
+                        p[rightArr[j]].dataset.value = "b";
+                        j +=2;
+                    }
+                    console.log(p[j]);
+                }
+            }
+            var button = document.getElementById("button");
+            var count = 59;
+            var timer = setInterval(function(){
+                count--;
+                button.innerText = `${count}`;
+                if(!count) {
+                    button.innerText = "时间到";
+                    clearInterval(timer);
+                    var result = confirm(`满足条件的有${sum}个，应划掉了${sum},划对了${right},划错了${error}`);
+                    if(result) {
+                        window.location.href = "/main/"
+                    } else {
+                        window.history.go(0);
+                    }
+                }
+            }, 1000);
+            for(var i = 0; i < p.length; i++) {
+                if(p[i].dataset.value === "7" && p[i-1].dataset.value === "b") {
+                    sum++;
+                }
+            }
+        }
+    </script>
+   
+</body>
+</html>

@@ -1,0 +1,55 @@
+body {
+    width: 100%;
+    position: relative;
+    font-size: 14px;
+    h2 {
+        text-align: center;
+        padding: 10px 0;
+    }
+    .content {
+        // border: 1px solid black;
+        padding: 0 6px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        p {
+            width: 30px;
+            height: 30px;
+            margin: 5px 0 10px;
+            text-align: center;
+            line-height: 30px;
+            position: relative;
+            font-size: 30px;
+            .disabled {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: red;
+                visibility: hidden;
+            }
+            .active {
+                visibility: visible;
+            }
+        }
+    }
+    .interval {
+        // border: 1px solid red;
+        height: 80px;
+        position: relative;
+        #button {
+            width: 100px;
+            height: 30px;
+            font-size: 20px;
+            color: red;
+            border: 0px;
+            background-color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    
+}

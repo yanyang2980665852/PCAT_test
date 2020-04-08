@@ -1,0 +1,346 @@
+<meta http-equiv='Content-type' content='text/htm'>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compitable" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title></title>
+		<!--[if lt IE 9]>
+	    <script src="static/pcat_style/js/html5shiv.min.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="static/pcat_style/js/respond.min.js" type="text/javascript" charset="utf-8"></script>
+	    <![endif]-->   
+		<script src="../static/pcat_style/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="../static/pcat_style/css/tony-test.css"/>
+	</head>
+
+	<body>
+
+		<div class="test-box">
+            <div style="height: 10%;"></div>
+			<div class="test-num">（<span></span>)</div>
+			<div class="question">
+				<!--<div style="clear: both;"></div>-->
+			</div>
+			<div class="bor"></div>
+			<div class="answer">
+				<!--<div style="clear: both;"></div>-->
+			</div>
+			<div class="end-time">
+				剩余时间：75秒
+			</div>
+			<div class="next" href="">
+				下一题
+			</div>
+		</div>
+		<div class="end-box">
+			<div class="end">
+				
+			</div>
+			<div class="right-num">
+				
+			</div>
+			<button class="go-index" onclick="ans_to_tuoni()">返回首页</button>
+		</div>
+		<script type="text/javascript">
+            function getCookie(name)
+            {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = jQuery.trim(cookies[i]);
+                            // Does this cookie string begin with the name we want?
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+			//初始变量
+			var picArr=[
+
+	['101', '102', '103', '104'],
+
+	['201', '202', '203', '204', '205', '206', '207'],
+
+	['301', '302', '303', '304', '305', '306', '307'],
+
+	['401', '402', '403', '404', '405'],
+
+	['501', '502', '503', '504', '505', '506', '507'],
+
+	['601', '602', '603', '604', '605', '606', '607'],
+
+	['701', '702', '703', '704', '705'],
+	['801', '802', '803', '804'],
+	['901', '902', '903'],
+      ['1001', '1002', '1003', '1004'],
+	['1101', '1102', '1103', '1104', '1105'],
+	['1201', '1202', '1203', '1204', '1205'],
+	['1301', '1302', '1303', '1304', '1305'],
+	['1401', '1402', '1403', '1404', '1405', '1406', '1407'],
+	['1501', '1502', '1503', '1504', '1505', '1506', '1507'],
+	['1601', '1602', '1603', '1604', '1605', '1606', '1607'],
+	['1701', '1702', '1703', '1704', '1705', '1706', '1707'],
+	['1801', '1802', '1803', '1804', '1805', '1806', '1807'],
+	['1901', '1902', '1903', '1904', '1905', '1906', '1907'],
+	['2001', '2002', '2003', '2004', '2005', '2006', '2007'],
+	['2101', '2102', '2103', '2104', '2105', '2106', '2107'],
+	['2201', '2202', '2203', '2204', '2205', '2206', '2207'],
+	['2301', '2302', '2303', '2304', '2305', '2306', '2307'],
+	['2401', '2402', '2403', '2404', '2405', '2406', '2407'],
+	['2501', '2502', '2503', '2504', '2505', '2506', '2507'],
+	['2601', '2602', '2603', '2604', '2605', '2606', '2607'],
+	['2701', '2702', '2703', '2704', '2705', '2706', '2707'],
+	['2801', '2802', '2803', '2804', '2805', '2806'],
+	['2901', '2902', '2903', '2904', '2905', '2906', '2907'],
+	['3001', '3002', '3003@3x', '3004', '3005'],
+	['3101', '3102', '3103', '3104', '3105', '3106', '3107'],
+	['3201', '3202', '3203', '3204', '3205', '3206', '3207'],
+	['3301', '3302', '3303', '3304', '3305', '3306', '3307'],
+	['3401', '3402', '3403', '3404', '3405', '3406', '3407'],
+	['3501', '3502', '3503', '3504', '3505', '3506', '3507'],
+	['3601', '3602', '3603', '3604', '3605'],
+	['3701', '3702', '3703', '3704', '3705', '3706', '3707'],
+	['3801', '3802', '3803', '3804', '3805', '3806', '3807'],
+	['3901', '3902', '3903', '3904', '3905', '3906', '3907'],
+	['4001', '4002', '4003', '4004', '4005', '4006', '4007'],
+	['4101', '4102', '4103', '4104', '4105', '4106', '4107'],
+	['4201', '4202', '4203', '4204', '4205', '4206', '4207'],
+	['4301', '4302', '4303', '4304', '4305', '4306', '4307'],
+	['4401', '4402', '4403', '4404', '4405', '4406', '4407'],
+	['4501', '4502', '4503', '4504', '4505'],
+	['4601', '4602', '4603', '4604', '4605', '4606', '4607'],
+	['4701', '4702', '4703', '4704', '4705', '4706', '4707'],
+	['4801', '4802', '4803', '4804', '4805', '4806', '4807'],
+	['4901', '4902', '4903', '4904', '4905', '4906', '4907'],
+	['5001', '5002', '5003', '5004', '5005', '5006', '5007'],
+	['5101', '5102', '5103', '5104', '5105', '5106', '5107'],
+	['5201', '5202', '5203', '5204', '5205', '5206', '5207'],
+	['5301', '5302', '5303', '5304', '5305', '5306', '5307'],
+	['5401', '5402', '5403', '5404', '5405'],
+	['5501', '5502', '5503', '5504', '5505'],
+	['5601', '5602', '5603', '5604', '5605'],
+	['5701', '5702', '5703', '5704', '5705', '5706', '5707'],
+	['5801', '5802', '5803', '5804', '5805', '5806', '5807'],
+	['5901', '5902', '5903', '5904', '5905'],
+	['6001', '6002', '6003', '6004', '6005', '6006', '6007'],
+
+	['6101', '6102', '6103', '6104', '6105'],
+	['6201', '6202', '6203', '6204', '6205', '6206', '6207'],
+	['6301', '6302', '6303', '6304', '6305', '6306', '6307'],
+	['6401', '6402', '6403', '6404', '6405', '6406', '6407'],
+	['6501', '6502', '6503', '6504', '6505', '6506', '6507'],
+	['6601', '6602', '6603', '6604', '6605', '6606', '6607'],
+	['6701', '6702', '6703', '6704', '6705', '6706', '6707'],
+	['6801', '6802', '6803', '6804', '6805', '6806', '6807'],
+	['6901', '6902', '6903', '6904', '6905', '6906', '6907'],
+	['7001', '7002', '7003', '7004', '7005', '7006', '7007']
+]
+			picArr=picArr.slice(0,2)
+			var textNum=0;
+			$('.test-num span').text(textNum+1)
+			var answer=[2,3,4,4,1,1,3,1,2,3,2,1,4,5,6,3,2,3,4,1,3,4,3,5,1, 1,3,2,6,4,1,4,5,1,3,4,3,4,4,1,1,3,1, 4,3,1,1,4,2,5,5,2,1,2,2,4,3,2,1,6,2,1,4,2,1,1,3,6,4,1]
+			var choice=[]
+			var isRight=''
+			var rightNum=0
+			var sure=answer[textNum]
+			var time=75;
+			//获取当前毫秒
+			var date=new Date();
+			var getTime=date.getTime();
+			$('.end-time').text('剩余时间：'+time+'秒')
+			//显示剩余秒数
+			//超时函数
+			function lang(){
+				if(time==0){
+					$('.item-box').removeClass('side');
+					//获取答题毫秒数
+					var nowDate=new Date();
+					var nowTime=nowDate.getTime();
+					var smallTime=nowTime-getTime;
+					//设置每一题的数据
+					choice.push({num:textNum,right:0,times:smallTime})
+					date=new Date();
+					getTime=date.getTime();
+					isRight=''
+					textNum+=1;
+					$('.test-num span').text(textNum+1)
+					sure=answer[textNum]
+					clearInterval(timer)
+					time=75;
+					//展示每一题数据和答对数
+					if(textNum>picArr.length-1){
+						$('.end-box').show();
+
+						$('.end').text('每一题用户答对或者答错数据:'+JSON.stringify(choice));
+						$('.right-num').text('答对数：'+rightNum);
+						$('.test-box').hide();
+						return false;
+					}
+					$('.end-time').text('剩余时间：'+time+'秒')
+					timer=setInterval(function(){
+						time-=1;
+						$('.end-time').text('剩余时间：'+time+'秒')
+						if(time==0){
+							lang()
+						}
+					},1000)	
+					//展示下一题的题干和选项
+					$('.question').html('');
+					$('.answer').html('');
+					$('.question').append('<div class="question-item"><img src="../static/pcat_style/tuoni_img/'+picArr[textNum][0]+'.png" /></div>')
+					for(var q=1;q<picArr[textNum].length;q++){
+						$('.answer').append('<div class="answer-item">'+
+							'<div class="item-box">'+
+								'<img src="../static/pcat_style/tuoni_img/'+picArr[textNum][q]+'.png" />'+
+							'</div>'+
+						'</div>')
+					}
+					$('.answer').append('<div style="clear: both;"></div>')
+					$('.item-box').each(function(index){
+						$('.item-box').eq(index).click(function(){				
+							$(this).addClass('side').parent().siblings().find('.item-box').removeClass('side');
+						})
+					})
+					//判断对错
+					$('.item-box').find('img').each(function(index){
+						$('.item-box').find('img').eq(index).click(function(){
+							if(index==sure-1){
+								isRight=1
+							}else{
+								isRight=0
+							}
+						})
+					})
+				}
+			}
+			var timer=setInterval(function(){
+				time-=1;
+				$('.end-time').text('剩余时间：'+time+'秒')
+				if(time==0){
+					lang()
+				}
+			},1000)
+			//展示题干和选项图片
+			$('.question').append('<div class="question-item"><img src="../static/pcat_style/tuoni_img/'+picArr[textNum][0]+'.png" /></div>')
+			for(var q=1;q<picArr[textNum].length;q++){
+				$('.answer').append('<div class="answer-item">'+
+					'<div class="item-box">'+
+						'<img src="../static/pcat_style/tuoni_img/'+picArr[textNum][q]+'.png" />'+
+					'</div>'+
+				'</div>')
+			}
+			$('.answer').append('<div style="clear: both;"></div>')
+			//判断对错
+			$('.item-box').find('img').each(function(index){
+				$('.item-box').find('img').eq(index).click(function(){
+					if(index==sure-1){
+						isRight=1
+					}else{
+						isRight=0
+					}
+				})
+			})
+			//选中状态
+			$('.item-box').each(function(index){
+				$('.item-box').eq(index).click(function(){				
+					$(this).addClass('side').parent().siblings().find('.item-box').removeClass('side');
+				})
+			})
+			$('.next').click(function(){
+				$('.item-box').removeClass('side');
+				if(isRight===''){
+					alert('请选择答案');
+					return false;
+				}
+				//获取答题毫秒数
+				var nowDate=new Date();
+				var nowTime=nowDate.getTime();
+				var smallTime=nowTime-getTime;
+				//设置每一题的数据
+				if(isRight===1){
+					rightNum+=1;
+					choice.push({num:textNum,right:1,times:smallTime})
+				}
+				if(isRight===0){
+					choice.push({num:textNum,right:0,times:smallTime})
+				}
+				date=new Date();
+				getTime=date.getTime();
+				isRight=''
+				textNum+=1;
+				$('.test-num span').text(textNum+1)
+				sure=answer[textNum]
+				clearInterval(timer)
+				time=75;
+				//展示每一题数据和答对数
+				if(textNum>picArr.length-1){
+					$('.end-box').show();
+					$('.end').text('每一题用户答对或者答错数据:'+JSON.stringify(choice));
+					$('.right-num').text('答对数：'+rightNum);
+					$('.test-box').hide();
+					return false;
+				}
+				$('.end-time').text('剩余时间：'+time+'秒')
+				timer=setInterval(function(){
+					time-=1;
+					$('.end-time').text('剩余时间：'+time+'秒')
+					if(time==0){
+						lang()
+					}
+				},1000)	
+				//展示下一题的题干和选项
+				$('.question').html('');
+				$('.answer').html('');
+				$('.question').append('<div class="question-item"><img src="../static/pcat_style/tuoni_img/'+picArr[textNum][0]+'.png" /></div>')
+				for(var q=1;q<picArr[textNum].length;q++){
+					$('.answer').append('<div class="answer-item">'+
+						'<div class="item-box">'+
+							'<img src="../static/pcat_style/tuoni_img/'+picArr[textNum][q]+'.png" />'+
+						'</div>'+
+					'</div>')
+				}
+				$('.answer').append('<div style="clear: both;"></div>')
+				$('.item-box').each(function(index){
+					$('.item-box').eq(index).click(function(){				
+						$(this).addClass('side').parent().siblings().find('.item-box').removeClass('side');
+					})
+				})
+				//判断对错
+				$('.item-box').find('img').each(function(index){
+					$('.item-box').find('img').eq(index).click(function(){
+						if(index==sure-1){
+							isRight=1
+						}else{
+							isRight=0
+						}
+					})
+				})
+			})
+        function ans_to_tuoni()
+        {
+            var csrftoken = getCookie('csrftoken');
+
+            $.ajax({
+                url: "/tuoni/",
+                method: "post",
+                data: {"ans":JSON.stringify(choice)},
+                success: (data) => {
+                    url="/main/";
+                    document.location.href=url;
+                },
+                error: (err) => {
+                    console.log(err)
+                }
+            })
+        }
+		</script>
+	</body>
+</html>
+
+

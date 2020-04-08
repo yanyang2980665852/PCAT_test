@@ -1,0 +1,342 @@
+<meta http-equiv='Content-type' content='text/htm'>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compitable" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title></title>
+		<!--[if lt IE 9]>
+	    <script src="js/html5shiv.min.js"></script>
+	    <script src="js/respond.min.js"></script>
+	    <![endif]-->
+		<script type="text/javascript" src="../static/pcat_style/js/jquery-1.11.0.js"></script>
+		<link rel="stylesheet" type="text/css" href="../static/pcat_style/css/test.css" />
+	</head>
+
+	<body>
+        <div style="height: 10%;"></div>
+		<div class="test-box">
+			<div class="test-num">（<span></span>)</div>
+			<div class="question">
+				<!--<div class="question-item">
+					<img src="" />
+				</div>
+				<div class="question-item">
+					<img src="" />
+				</div>-->
+				<div style="clear: both;"></div>
+			</div>
+			<div class="bor"></div>
+			<div class="answer">
+				<!--<div class="answer-item">
+					<div class="item-box">
+						<img src="" />
+					</div>
+				</div>
+				<div class="answer-item">
+					<div class="item-box">
+						<img src="" />
+					</div>
+				</div>
+				<div class="answer-item">
+					<div class="item-box">
+						<img src="" />
+					</div>
+				</div>
+				<div class="answer-item">
+					<div class="item-box">
+						<img src="" />
+					</div>
+				</div>
+				<div class="answer-item">
+					<div class="item-box">
+						<img src="" />
+					</div>
+				</div>
+				<div class="answer-item">
+					<div class="item-box">
+						<img src="" />
+					</div>
+				</div>
+				<div class="answer-item">
+					<div class="item-box">
+						<img src="" />
+					</div>
+				</div>
+				<div class="answer-item">
+					<div class="item-box">
+						<img src="" />
+					</div>
+				</div>-->
+				<div style="clear: both;"></div>
+			</div>
+			<div class="end-time">
+				剩余时间：75秒
+			</div>
+			<div class="next" href="">
+				下一题
+			</div>
+		</div>
+		<div class="end-box">
+			<div class="end">
+
+			</div>
+			<div class="right-num">
+
+			</div>
+			<button class="go-index" onclick="ans_to_zhezhi()">返回首页</button>
+		</div>
+		<script type="text/javascript">
+			//初始变量
+			var textNum=0;
+			$('.test-num span').text(textNum+1)
+			{#var arr=[#}
+		    {#  {#}
+		    {#   "tigan":['0_0','0_1'],#}
+		    {#   "xuanxiang":['0_0_0','0_1_0','0_2_0','0_3_0','0_4_0','0_5_0','0_6_0','0_7_1']#}
+		    {#  },#}
+		    {#  {#}
+		    {#   "tigan":['1_0','1_1'],#}
+		    {#   "xuanxiang":['1_0_1','1_1_0','1_2_0','1_3_0','1_4_0','1_5_0','1_6_0','1_7_0',]#}
+		    {#  },#}
+		    {#  {#}
+		    {#   "tigan":['2_0','2_1'],#}
+		    {#   "xuanxiang":['2_0_0','2_1_0','2_2_0','2_3_0','2_4_1','2_5_0','2_6_0','2_7_0',]#}
+		    {#  }#}
+		    {#]#}
+
+            var arr ={{ data | safe }}
+			var answer=[]
+			for(var i=0;i<arr.length;i++){
+				for(var n=0;n<arr[i]['xuanxiang'].length;n++){
+				    var ln=arr[i]['xuanxiang'][n].length-1;
+					if(arr[i]['xuanxiang'][n].charAt(ln)=='1'){
+						answer.push(n)
+					}
+				}
+
+			}
+
+			var choice=[]
+			var isRight=''
+			var rightNum=0
+			var sure=answer[textNum]
+			var time=75;
+			//获取当前毫秒
+			var date=new Date();
+			var getTime=date.getTime();
+			$('.end-time').text('剩余时间：'+time+'秒')
+			//显示剩余秒数
+			//超时函数
+			function lang(){
+				if(time==0){
+					$('.item-box').removeClass('side');
+					//获取答题毫秒数
+					var nowDate=new Date();
+					var nowTime=nowDate.getTime();
+					var smallTime=nowTime-getTime;
+					//设置每一题的数据
+					choice.push({num:textNum,right:0,times:smallTime})
+					date=new Date();
+					getTime=date.getTime();
+					isRight=''
+					textNum+=1;
+					$('.test-num span').text(textNum+1)
+					sure=answer[textNum]
+					clearInterval(timer)
+					time=75;
+					//展示每一题数据和答对数
+					if(textNum>answer.length-1){
+						$('.end-box').show();
+						$('.end').text('每一题用户答对或者答错数据:'+JSON.stringify(choice));
+						$('.right-num').text('答对数：'+rightNum);
+						$('.test-box').hide();
+						return false;
+					}
+					$('.end-time').text('剩余时间：'+time+'秒')
+					timer=setInterval(function(){
+						time-=1;
+						$('.end-time').text('剩余时间：'+time+'秒')
+						if(time==0){
+							lang()
+						}
+					},1000)
+					//展示下一题的题干和选项
+					$('.question').html('').append('<div style="clear: both;"></div>');
+					$('.answer').html('').append('<div style="clear: both;"></div>');
+					for(var s=0;s<arr[textNum]['tigan'].length;s++){
+						$('.question').append('<div class="question-item"><img src="../static/pcat_style/zhe_zhi_img/'+arr[textNum]['tigan'][s]+'.bmp" /></div>')
+					}
+					$('.question').append('<div style="clear: both;"></div>')
+
+					for(var q=0;q<arr[textNum]['xuanxiang'].length;q++){
+						$('.answer').append('<div class="answer-item">'+
+							'<div class="item-box">'+
+								'<img src="../static/pcat_style/zhe_zhi_img/'+arr[textNum]['xuanxiang'][q]+'.bmp" />'+
+							'</div>'+
+						'</div>')
+					}
+					$('.answer').append('<div style="clear: both;"></div>')
+					$('.item-box').each(function(index){
+						$('.item-box').eq(index).click(function(){
+							$(this).addClass('side').parent().siblings().find('.item-box').removeClass('side');
+						})
+					})
+					$('.answer').find('.item-box').each(function(index){
+						$('.answer').find('.answer-item').eq(index).click(function(){
+							if(index==sure){
+								isRight=1
+							}else{
+								isRight=0
+							}
+						})
+					})
+				}
+			}
+			var timer=setInterval(function(){
+				time-=1;
+				$('.end-time').text('剩余时间：'+time+'秒')
+				if(time==0){
+					lang()
+				}
+			},1000)
+			console.log(time)
+			//展示题干图片
+			for(var s=0;s<arr[textNum]['tigan'].length;s++){
+				$('.question').append('<div class="question-item"><img src="../static/pcat_style/zhe_zhi_img/'+arr[textNum]['tigan'][s]+'.bmp" /></div>')
+			}
+			$('.question').append('<div style="clear: both;"></div>')
+			for(var q=0;q<arr[textNum]['xuanxiang'].length;q++){
+				$('.answer').append('<div class="answer-item">'+
+					'<div class="item-box">'+
+						'<img src="../static/pcat_style/zhe_zhi_img/'+arr[textNum]['xuanxiang'][q]+'.bmp" />'+
+					'</div>'+
+				'</div>')
+			}
+			$('.answer').append('<div style="clear: both;"></div>')
+			$('.answer').find('.item-box').each(function(index){
+				$('.answer').find('.answer-item').eq(index).click(function(){
+					if(index==sure){
+						isRight=1
+					}else{
+						isRight=0
+					}
+				})
+			})
+
+			//选中状态
+			$('.item-box').each(function(index){
+				$('.item-box').eq(index).click(function(){
+					$(this).addClass('side').parent().siblings().find('.item-box').removeClass('side');
+				})
+			})
+			$('.next').click(function(){
+				$('.item-box').removeClass('side');
+				if(isRight===''){
+					alert('请选择答案');
+					return false;
+				}
+				//获取答题毫秒数
+				var nowDate=new Date();
+				var nowTime=nowDate.getTime();
+				var smallTime=nowTime-getTime;
+				//设置每一题的数据
+				if(isRight===1){
+					rightNum+=1;
+					choice.push({num:textNum,right:1,times:smallTime})
+				}
+				if(isRight===0){
+					choice.push({num:textNum,right:0,times:smallTime})
+				}
+				date=new Date();
+				getTime=date.getTime();
+				isRight=''
+				textNum+=1;
+				$('.test-num span').text(textNum+1)
+				sure=answer[textNum]
+				clearInterval(timer)
+				time=75;
+				//展示每一题数据和答对数
+				if(textNum>answer.length-1){
+					$('.end-box').show();
+					$('.end').text('每一题用户答对或者答错数据:'+JSON.stringify(choice));
+					$('.right-num').text('答对数：'+rightNum);
+					$('.test-box').hide();
+					return false;
+				}
+				$('.end-time').text('剩余时间：'+time+'秒')
+				timer=setInterval(function(){
+					time-=1;
+					$('.end-time').text('剩余时间：'+time+'秒')
+					if(time==0){
+					lang()
+				}
+				},1000)
+				//展示下一题的题干和选项
+				$('.question').html('');
+				$('.answer').html('');
+				for(var s=0;s<arr[textNum]['tigan'].length;s++){
+					$('.question').append('<div class="question-item"><img src="../static/pcat_style/zhe_zhi_img/'+arr[textNum]['tigan'][s]+'.bmp" /></div>')
+				}
+				$('.question').append('<div style="clear: both;"></div>')
+				for(var q=0;q<arr[textNum]['xuanxiang'].length;q++){
+					$('.answer').append('<div class="answer-item">'+
+						'<div class="item-box">'+
+							'<img src="../static/pcat_style/zhe_zhi_img/'+arr[textNum]['xuanxiang'][q]+'.bmp" />'+
+						'</div>'+
+					'</div>')
+				}
+				$('.answer').append('<div style="clear: both;"></div>')
+				$('.item-box').each(function(index){
+					$('.item-box').eq(index).click(function(){
+						$(this).addClass('side').parent().siblings().find('.item-box').removeClass('side');
+					})
+				})
+				$('.answer').find('.item-box').each(function(index){
+					$('.answer').find('.answer-item').eq(index).click(function(){
+						if(index==sure){
+							isRight=1
+						}else{
+							isRight=0
+						}
+					})
+				})
+			})
+            function getCookie(name)
+            {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = jQuery.trim(cookies[i]);
+                            // Does this cookie string begin with the name we want?
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+            function ans_to_zhezhi()
+            {
+                var csrftoken = getCookie('csrftoken');
+
+                $.ajax({
+                    url: "/tuoni/",
+                    method: "post",
+                    data: {"ans":JSON.stringify(choice)},
+                    success: (data) => {
+                        url="/main/";
+                        document.location.href=url;
+                    },
+                    error: (err) => {
+                        console.log(err)
+                    }
+                })
+            }
+		</script>
+	</body>
+</html>
